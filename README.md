@@ -1,19 +1,20 @@
 ## Docker Hub
 
-[fsmoraes/laravel-project:1.0](https://hub.docker.com/layers/fsmoraes/laravel-project/1.0/images/sha256-6cb99161effbd48988ff8501e0861e0a78a45b3ae64d1b7d721609f053897290?context=repo)
+[fsmoraes/laravel-project:2.0](https://hub.docker.com/layers/fsmoraes/laravel-project/2.0/images/sha256-a66e6a5a2490bbe8d77ba4b35fde6bcaa381a58b9ea93c881fe3ca21c43e8d24?context=repo)
 
 ## Running Docker Compose with local Dockerfile
 
     1. docker-compose up -d
     2. docker exec -it app bash
         2.1 composer install
-        2.2 php artisan key:generate
-        2.3 php artisan migrate
+        2.2 cp .env.example .env
+        2.3 php artisan key:generate
+        2.4 php artisan migrate
     3. Access http://localhost:8000 
 
 
 ## Running Docker Compose with Docker Hub image
 
     1. Change app service in docker-compose.yml
-        1.1 Replace "build: ." for "image: fsmoraes/laravel-project:1.0"
+        1.1 Replace "build: ." for "image: fsmoraes/laravel-project:2.0"
     2. Access http://localhost:8000 

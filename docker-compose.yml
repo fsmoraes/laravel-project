@@ -4,6 +4,7 @@ services:
     
     app:
         build: .
+        # image: fsmoraes/laravel-project:2.0
         container_name: app
         volumes: 
             - .:/var/www
