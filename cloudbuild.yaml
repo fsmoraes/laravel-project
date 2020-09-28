@@ -10,7 +10,7 @@ steps:
 
   - id: "Rodando dockerizer"
     name: 'docker'
-    args: ['exec','-t','app','dockerize','-template', './.docker/app/.env:.env']
+    args: ['exec','-t','app','dockerize','-template', '.docker/app/.env:.env']
 
   - id: "Rodando config clear"
     name: 'docker'
