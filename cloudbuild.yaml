@@ -2,12 +2,28 @@ steps:
 
   - name: "docker/compose"
     id: "Rodando docker-compose"
-    args: [ 'up', '-d' ]
+    args: ['-f','docker-compose.cloudbuild.yaml','up','-d']
 
-  - name: "gcr.io/cloud-builders/dockerizer"
-    id: "Esperando container app"
-    args: [ '-wait', 'tcp://app:9000', '-timeout', '20s' ]
+  - id: "Rodando composer"
+    name: 'docker'
+    args: ['exec','-t','app','composer','install']
 
-  - name: "docker"
-    id: "Rodando Testes"
-    args: [ 'exec', '-t', 'app', 'php', '/var/www/vendor/bin/phpunit', '-c', '/var/www/phpunit.xml' ]
+  - id: "Rodando dockerizer"
+    name: 'docker'
+    args: ['exec','-t','app','dockerize','-template', './.docker/app/.env:.env']
+
+  - id: "Rodando config clear"
+    name: 'docker'
+    args: ['exec','-t','app','php','/var/www/artisan', 'config:clear']
+
+  - id: "Rodando key:generate"
+    name: 'docker'
+    args: ['exec','-t','app','php','/var/www/artisan', 'key:generate']
+
+  - id: "Rodando migrations"
+    name: 'docker'
+    args: ['exec','-t','app','php','/var/www/artisan', 'migrate']
+
+  - id: "Rodando Phpunit"
+    name: 'docker'
+    args: ['exec','-t','app','php','/var/www/vendor/bin/phpunit', '-c', '/var/www/phpunit.xml']
