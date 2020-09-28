@@ -4,7 +4,7 @@ steps:
     id: "Rodando docker-compose"
     args: [ 'up', '-d' ]
 
-  - name: "dockerize"
+  - name: "dockerizer"
     id: "Esperando container app"
     args: [ '-wait', 'tcp://app:9000', '-timeout', '20s' ]
 
