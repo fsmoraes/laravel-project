@@ -8,9 +8,13 @@ steps:
     name: 'docker'
     args: ['exec','-t','app','composer','install']
 
-  - id: "Rodando dockerizer"
+  # - id: "Rodando dockerizer"
+  #   name: 'docker'
+  #   args: ['exec','-t','app','dockerize','-template', '.docker/app/.env:.env']
+
+  - id: "Copiando .env"
     name: 'docker'
-    args: ['exec','-t','app','dockerize','-template', '.docker/app/.env:.env']
+    args: ['exec','-t','app','cp','.env.example', '.env']
 
   - id: "Rodando config clear"
     name: 'docker'
