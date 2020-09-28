@@ -1,5 +1,9 @@
 steps:
 
-  - name: "docker/docker-compose"
+  - name: "docker/compose"
     id: "Rodando docker-compose"
     args: [ 'up', '-d' ]
+
+  # - name: "docker"
+  #   id: "Rodando Testes"
+  #   args: [ 'exec', '-t', 'app', 'php', '/var/www/vendor/bin/phpunit', '-c', '/var/www/phpunit.xml' ]
