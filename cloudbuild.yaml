@@ -1,0 +1,5 @@
+steps:
+
+  - name: "docker/docker-compose"
+    id: "Rodando docker-compose"
+    args: [ 'up', '-d' ]
