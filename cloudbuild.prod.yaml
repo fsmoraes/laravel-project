@@ -35,3 +35,21 @@ steps:
   - id: 'Push image'
     name: 'docker'
     args: ['push', 'gcr.io/$PROJECT_ID/app-laravel:$SHORT_SHA']
+
+  - id: 'Ajusta deployment file - k8s'
+    name: 'gcloud'
+    entrypoint: 'bin/sh'
+    args:
+      - '-c'
+      - |
+        sed 's#img-app-deployment#gcr.io/$PROJECT_ID/app-laravel:$SHORT_SHA#g' k8s/app/deployment.yaml > k8s/app/deployment-new.yaml;
+
+  - id: 'Deploy k8s'
+    name: 'kubectl'
+    args:
+      - 'apply'
+      - '-f'
+      - 'k8s/app/deployment-new.yaml'
+    env:
+      - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-docker-laravel'
