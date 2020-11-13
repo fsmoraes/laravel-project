@@ -38,14 +38,14 @@ steps:
 
   - id: 'Ajusta deployment file - k8s'
     name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bin/sh'
+    entrypoint: '/bin/sh'
     args:
       - '-c'
       - |
         sed 's#img-app-deployment#gcr.io/$PROJECT_ID/app-laravel:$SHORT_SHA#g' k8s/app/deployment.yaml > k8s/app/deployment-new.yaml;
 
   - id: 'Deploy k8s'
-    name: 'kubectl'
+    name: 'gcr.io/cloud-builders/kubectl'
     args:
       - 'apply'
       - '-f'
